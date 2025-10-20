@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import SearchBar from '@/components/SearchBar'
 import { StyleSheet, View } from 'react-native'
 import Gear from '@/assets/icons/settings-icon.svg'
+import VideoThumbnail from '@/components/VideoThumbnail'
 
 const Home = () => {
   const [searchText, setSearchText] = useState('')
@@ -16,6 +17,7 @@ const Home = () => {
         />
         <Gear />
       </View>
+      <VideoThumbnail />
     </SafeAreaView>
   )
 }
