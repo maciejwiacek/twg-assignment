@@ -2,7 +2,7 @@ import PrimaryButton from '@/components/PrimaryButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { router } from 'expo-router'
 import React from 'react'
-import { Button, StyleSheet, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 
 const Index = () => {
   const handleSignIn = async () => {
@@ -16,8 +16,10 @@ const Index = () => {
 
   return (
     <View style={styles.container}>
-      <Button title='Sign In' onPress={handleSignIn} />
-      <PrimaryButton />
+      <Text style={styles.subheading}>
+        Welcome to the best{'\n'}YouTube-based learning application.
+      </Text>
+      <PrimaryButton title='Sign In' onPress={handleSignIn} />
     </View>
   )
 }
@@ -30,5 +32,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#8D99AE',
+    paddingHorizontal: 30,
+  },
+  subheading: {
+    fontFamily: 'Poppins_600SemiBold',
+    fontSize: 22,
+    lineHeight: 24,
+    color: 'white',
+    marginBottom: 20,
   },
 })
