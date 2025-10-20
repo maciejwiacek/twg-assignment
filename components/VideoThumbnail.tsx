@@ -1,7 +1,13 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-const VideoThumbnail = () => {
+interface VideoThumbnailProps {
+  title: string
+  date: string
+  image: string
+}
+
+const VideoThumbnail = ({ title, date, image }: VideoThumbnailProps) => {
   const formatDate = (isoString: string) => {
     const date = new Date(isoString)
     const day = date.getDate().toString().padStart(2, '0')
@@ -12,14 +18,9 @@ const VideoThumbnail = () => {
 
   return (
     <TouchableOpacity style={styles.container}>
-      <Image
-        source={{ uri: 'https://i.ytimg.com/vi/lfmg-EJ8gm4/default.jpg' }}
-        style={styles.image}
-      />
-      <Text style={styles.title}>
-        JavaScript Full Course for free 🌐 Dupa dupa dupa
-      </Text>
-      <Text style={styles.date}>{formatDate('2019-12-09T19:15:01Z')}</Text>
+      <Image source={{ uri: image }} style={styles.image} />
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.date}>{formatDate(date)}</Text>
     </TouchableOpacity>
   )
 }
