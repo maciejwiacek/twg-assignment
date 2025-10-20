@@ -10,7 +10,7 @@ const Index = () => {
   const handleSignIn = async () => {
     try {
       await AsyncStorage.setItem('isSignedIn', 'true')
-      router.replace('/(app)')
+      router.replace('/(app)/(tabs)/home')
     } catch (error) {
       console.log('Error signing in:', error)
     }

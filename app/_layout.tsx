@@ -9,6 +9,7 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins'
+import { ActivityIndicator } from 'react-native'
 
 const RootLayout = () => {
   const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null)
@@ -23,6 +24,7 @@ const RootLayout = () => {
   const checkSignInStatus = async () => {
     try {
       const signedIn = await AsyncStorage.getItem('isSignedIn')
+      console.log('signedIn:', signedIn)
       setIsSignedIn(signedIn === 'true')
     } catch (error) {
       console.error('Error reading sign-in status:', error)
@@ -37,13 +39,17 @@ const RootLayout = () => {
   )
 
   if (isSignedIn === null || !fontsLoaded) {
-    return null
+    return <ActivityIndicator size='large' style={{ flex: 1 }} />
   }
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='(auth)' />
-      <Stack.Screen name='(app)' />
+      <Stack.Protected guard={isSignedIn === false}>
+        <Stack.Screen name='(auth)' />
+      </Stack.Protected>
+      <Stack.Protected guard={isSignedIn === true}>
+        <Stack.Screen name='(app)' />
+      </Stack.Protected>
     </Stack>
   )
 }
