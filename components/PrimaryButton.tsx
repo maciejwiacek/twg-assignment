@@ -19,9 +19,8 @@ export default PrimaryButton
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#2B2D42',
-    flex: 1,
     width: '100%',
-    maxHeight: 48,
+    height: 48,
     borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
