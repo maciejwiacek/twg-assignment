@@ -1,9 +1,24 @@
 import { Stack, useFocusEffect } from 'expo-router'
 import { useCallback, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {
+  useFonts,
+  Poppins_300Light,
+  Poppins_400Regular,
+  Poppins_500Medium,
+  Poppins_600SemiBold,
+  Poppins_700Bold,
+} from '@expo-google-fonts/poppins'
 
 const RootLayout = () => {
   const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null)
+  const [fontsLoaded] = useFonts({
+    Poppins_300Light,
+    Poppins_400Regular,
+    Poppins_500Medium,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  })
 
   const checkSignInStatus = async () => {
     try {
@@ -21,7 +36,7 @@ const RootLayout = () => {
     }, [])
   )
 
-  if (isSignedIn === null) {
+  if (isSignedIn === null || !fontsLoaded) {
     return null
   }
 

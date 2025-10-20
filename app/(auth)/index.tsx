@@ -1,3 +1,4 @@
+import PrimaryButton from '@/components/PrimaryButton'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { router } from 'expo-router'
 import React from 'react'
@@ -16,6 +17,7 @@ const Index = () => {
   return (
     <View style={styles.container}>
       <Button title='Sign In' onPress={handleSignIn} />
+      <PrimaryButton />
     </View>
   )
 }
