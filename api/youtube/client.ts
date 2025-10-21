@@ -16,11 +16,15 @@ export const fetchYouTubeVideos = async (
     throw new Error('Search query is required')
   }
 
+  const modifiedQuery = `${query} programming tutorial -music -reaction`
+
   const params = new URLSearchParams({
     part: 'snippet',
-    q: query,
+    q: modifiedQuery,
     key: YOUTUBE_API_KEY,
     type: 'video',
+    order: 'relevance',
+    relevanceLanguage: 'en',
   })
 
   if (pageToken) {
