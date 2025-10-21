@@ -20,6 +20,7 @@ export interface YouTubeSearchItem {
     description: string
     thumbnails: {
       default: { url: string }
+      high: { url: string }
     }
     channelTitle: string
   }

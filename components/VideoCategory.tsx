@@ -1,50 +1,45 @@
-import { View, Text, FlatList, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native'
 import React from 'react'
 import VideoThumbnail from './VideoThumbnail'
+import { useVideos } from '@/hooks/useVideos'
 
-const VIDEOS = [
-  {
-    title: 'JavaScript Full Course for free 🌐 Dupa dupa dupa',
-    date: '2019-12-09T19:15:01Z',
-    image: 'https://i.ytimg.com/vi/lfmg-EJ8gm4/default.jpg',
-  },
-  {
-    title: 'JavaScript Full Course for free 🌐 Dupa dupa dupa',
-    date: '2019-12-09T19:15:01Z',
-    image: 'https://i.ytimg.com/vi/lfmg-EJ8gm4/default.jpg',
-  },
-  {
-    title: 'JavaScript Full Course for free 🌐 Dupa dupa dupa',
-    date: '2019-12-09T19:15:01Z',
-    image: 'https://i.ytimg.com/vi/lfmg-EJ8gm4/default.jpg',
-  },
+interface VideoCategoryProps {
+  category: string
+}
 
-  {
-    title: 'JavaScript Full Course for free 🌐 Dupa dupa dupa',
-    date: '2019-12-09T19:15:01Z',
-    image: 'https://i.ytimg.com/vi/lfmg-EJ8gm4/default.jpg',
-  },
-]
+const VideoCategory = ({ category }: VideoCategoryProps) => {
+  const { data, isLoading, isError } = useVideos(category)
+  const videos = data?.pages.flatMap((page) => page.items)
 
-const VideoCategory = () => {
+  if (isLoading) {
+    return <ActivityIndicator size='large' style={{ flex: 1 }} />
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>React Native</Text>
+        <Text style={styles.title}>{category}</Text>
         <Text style={styles.showMore} onPress={() => console.log('Show more')}>
           Show more
         </Text>
       </View>
       <FlatList
-        data={VIDEOS}
+        data={videos || []}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContent}
+        keyExtractor={(item) => item.id.videoId}
         renderItem={({ item }) => (
           <VideoThumbnail
-            title={item.title}
-            date={item.date}
-            image={item.image}
+            title={item.snippet.title}
+            date={item.snippet.publishedAt}
+            image={item.snippet.thumbnails.high.url}
           />
         )}
       />

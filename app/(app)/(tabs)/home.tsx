@@ -23,9 +23,10 @@ const Home = () => {
         <Gear />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <VideoCategory />
-        <VideoCategory />
-        <VideoCategory />
+        <VideoCategory category='React Native' />
+        <VideoCategory category='React' />
+        <VideoCategory category='TypeScript' />
+        <VideoCategory category='JavaScript' />
       </ScrollView>
     </SafeAreaView>
   )
