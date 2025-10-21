@@ -1,0 +1,17 @@
+export const VIDEO_CONFIG = {
+  SEEK_INTERVAL: 10,
+  PROGRESS_BAR_HEIGHT: 4,
+  THUMB_SIZE: 12,
+  HIT_SLOP: { top: 20, bottom: 20, left: 0, right: 0 },
+  VIDEO_HEIGHT: 280,
+  CONTROLS_PADDING: 16,
+  CONTROLS_GAP: 40,
+  RIGHT_CONTROLS_GAP: 12,
+} as const
+
+export const VIDEO_STYLES = {
+  CONTROLS_OVERLAY_BG: 'rgba(255, 255, 255, 0.5)',
+  PROGRESS_BAR_BG: 'rgba(255, 255, 255, 0.2)',
+  PROGRESS_BAR_FILL: '#FF0000',
+  TIME_DISPLAY_COLOR: 'white',
+} as const
