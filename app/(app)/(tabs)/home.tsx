@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import SearchBar from '@/components/SearchBar'
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import Gear from '@/assets/icons/settings-icon.svg'
 import VideoCategory from '@/components/VideoCategory'
+import { useVideos } from '@/hooks/useVideos'
 
 const Home = () => {
   const [searchText, setSearchText] = useState('')
+  const { data, isLoading, isError } = useVideos('React Native')
+  if (!isLoading) {
+    console.log(data?.pages[0].items.map((item) => item.snippet.title))
+  }
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.header}>
         <SearchBar
           value={searchText}
@@ -17,9 +22,11 @@ const Home = () => {
         />
         <Gear />
       </View>
-      <VideoCategory />
-      <VideoCategory />
-      <VideoCategory />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <VideoCategory />
+        <VideoCategory />
+        <VideoCategory />
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -37,5 +44,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     paddingHorizontal: 16,
+    paddingBottom: 16,
   },
 })
