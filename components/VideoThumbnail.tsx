@@ -1,13 +1,20 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { router } from 'expo-router'
 
 interface VideoThumbnailProps {
+  videoId: string
   title: string
   date: string
   image: string
 }
 
-const VideoThumbnail = ({ title, date, image }: VideoThumbnailProps) => {
+const VideoThumbnail = ({
+  videoId,
+  title,
+  date,
+  image,
+}: VideoThumbnailProps) => {
   const formatDate = (isoString: string) => {
     const date = new Date(isoString)
     const day = date.getDate().toString().padStart(2, '0')
@@ -17,7 +24,10 @@ const VideoThumbnail = ({ title, date, image }: VideoThumbnailProps) => {
   }
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => router.push(`/(app)/video/${videoId}`)}
+    >
       <Image source={{ uri: image }} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.date}>{formatDate(date)}</Text>

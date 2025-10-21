@@ -4,14 +4,10 @@ import SearchBar from '@/components/SearchBar'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import Gear from '@/assets/icons/settings-icon.svg'
 import VideoCategory from '@/components/VideoCategory'
-import { useVideos } from '@/hooks/useVideos'
 
 const Home = () => {
   const [searchText, setSearchText] = useState('')
-  const { data, isLoading, isError } = useVideos('React Native')
-  if (!isLoading) {
-    console.log(data?.pages[0].items.map((item) => item.snippet.title))
-  }
+
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.header}>

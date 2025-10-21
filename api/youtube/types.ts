@@ -25,3 +25,21 @@ export interface YouTubeSearchItem {
     channelTitle: string
   }
 }
+
+export interface VideoDetailResponse {
+  items: VideoDetailItem[]
+}
+
+export interface VideoDetailItem {
+  id: string
+  snippet: {
+    title: string
+    description: string
+    publishedAt: string
+    channelTitle: string
+  }
+  statistics: {
+    viewCount: string
+    likeCount: string
+  }
+}

@@ -37,6 +37,7 @@ const VideoCategory = ({ category }: VideoCategoryProps) => {
         keyExtractor={(item) => item.id.videoId}
         renderItem={({ item }) => (
           <VideoThumbnail
+            videoId={item.id.videoId}
             title={item.snippet.title}
             date={item.snippet.publishedAt}
             image={item.snippet.thumbnails.high.url}

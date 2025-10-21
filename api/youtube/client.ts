@@ -1,4 +1,8 @@
-import { YouTubeSearchResponse } from './types'
+import {
+  VideoDetailItem,
+  VideoDetailResponse,
+  YouTubeSearchResponse,
+} from './types'
 import axios from 'axios'
 
 const YOUTUBE_API_KEY = process.env.EXPO_PUBLIC_GOOGLE_API_KEY!
@@ -28,4 +32,20 @@ export const fetchYouTubeVideos = async (
   const { data } = await axios.get<YouTubeSearchResponse>(url)
 
   return data
+}
+
+export const fetchYouTubeVideoDetails = async (
+  videoId: string
+): Promise<VideoDetailItem> => {
+  const params = new URLSearchParams({
+    part: 'snippet,contentDetails,statistics',
+    id: videoId,
+    key: YOUTUBE_API_KEY,
+  })
+
+  const url = `${YOUTUBE_API_BASE}/videos?${params.toString()}`
+
+  const { data } = await axios.get<VideoDetailResponse>(url)
+
+  return data.items[0]
 }
