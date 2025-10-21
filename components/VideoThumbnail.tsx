@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { router } from 'expo-router'
+import { formatDate } from '@/utils/formatDate'
 
 interface VideoThumbnailProps {
   videoId: string
@@ -15,14 +16,6 @@ const VideoThumbnail = ({
   date,
   image,
 }: VideoThumbnailProps) => {
-  const formatDate = (isoString: string) => {
-    const date = new Date(isoString)
-    const day = date.getDate().toString().padStart(2, '0')
-    const month = (date.getMonth() + 1).toString().padStart(2, '0')
-    const year = date.getFullYear()
-    return `${day}.${month}.${year}`
-  }
-
   return (
     <TouchableOpacity
       style={styles.container}
@@ -34,7 +27,9 @@ const VideoThumbnail = ({
       }
     >
       <Image source={{ uri: image }} style={styles.image} />
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title} numberOfLines={2}>
+        {title}
+      </Text>
       <Text style={styles.date}>{formatDate(date)}</Text>
     </TouchableOpacity>
   )

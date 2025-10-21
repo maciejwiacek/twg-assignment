@@ -1,6 +1,7 @@
 import { View, TextInput, StyleSheet } from 'react-native'
 import React from 'react'
 import Search from '@/assets/icons/search-icon.svg'
+import BigThumbnail from './BigThumbnail'
 
 interface SearchBarProps {
   value: string
@@ -41,5 +42,7 @@ const styles = StyleSheet.create({
     color: '#2B2D42',
     fontFamily: 'Poppins_400Regular',
     fontSize: 16,
+    flex: 1,
+    maxWidth: '90%',
   },
 })
