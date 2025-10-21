@@ -26,7 +26,7 @@ export default VideoPlayerButton
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
