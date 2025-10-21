@@ -14,6 +14,14 @@ export default function Layout() {
             gestureDirection: 'horizontal',
           }}
         />
+        <Stack.Screen
+          name='user/settings'
+          options={{
+            presentation: 'card',
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
+          }}
+        />
       </Stack>
     </QueryProvider>
   )

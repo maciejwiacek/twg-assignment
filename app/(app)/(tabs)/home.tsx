@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import SearchBar from '@/components/SearchBar'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import Gear from '@/assets/icons/settings-icon.svg'
 import VideoCategory from '@/components/VideoCategory'
+import { router } from 'expo-router'
 
 const Home = () => {
   const [searchText, setSearchText] = useState('')
@@ -16,7 +17,9 @@ const Home = () => {
           onChangeText={(text) => setSearchText(text)}
           placeholder='Search videos'
         />
-        <Gear />
+        <TouchableOpacity onPress={() => router.push('/user/settings')}>
+          <Gear />
+        </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <VideoCategory category='React Native' />
