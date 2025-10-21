@@ -26,7 +26,12 @@ const VideoThumbnail = ({
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => router.push(`/(app)/video/${videoId}`)}
+      onPress={() =>
+        router.push({
+          pathname: '/(app)/video/[videoId]',
+          params: { videoId },
+        })
+      }
     >
       <Image source={{ uri: image }} style={styles.image} />
       <Text style={styles.title}>{title}</Text>
