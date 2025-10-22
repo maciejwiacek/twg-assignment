@@ -1,50 +1,62 @@
-# Welcome to your Expo app 👋
+# YouTube Learn App 📱
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native mobile application built with Expo that provides a YouTube-like learning experience for educational content.
 
-## Get started
+## Prerequisites
 
-1. Install dependencies
+- Node.js (v16 or higher)
+- iOS Simulator
+- Expo CLI (`npm install -g @expo/cli`)
 
-   ```bash
-   npm install
-   ```
+## Getting Started
 
-2. Start the app
+### 1. Environment Setup
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+Create a `.env` file in the root directory and add your Google API key:
 
 ```bash
-npm run reset-project
+EXPO_PUBLIC_GOOGLE_API_KEY=your_api_key_here
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+**To get your Google API key:**
 
-## Learn more
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing one
+3. Enable the YouTube Data API v3
+4. Create credentials (API Key)
+5. Copy the API key to your `.env` file
 
-To learn more about developing your project with Expo, look at the following resources:
+### 2. Install Dependencies
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm install
+```
 
-## Join the community
+### 3. Run on iOS
 
-Join our community of developers creating universal apps.
+```bash
+npx expo run:ios
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+If you encounter issues with native dependencies, run:
+
+```bash
+npx expo prebuild
+```
+
+## Project Structure
+
+```
+├── app/                    # App screens and navigation
+│   ├── (app)/             # Main app screens
+│   │   ├── (tabs)/        # Tab navigation screens
+│   │   └── user/          # User-related screens
+│   └── (auth)/            # Authentication screens
+├── components/            # Reusable UI components
+├── hooks/                 # Custom React hooks
+├── api/                   # API client and types
+├── contexts/              # React contexts
+├── store/                 # State management
+├── utils/                 # Utility functions
+└── assets/                # Images, icons, and media files
+```
