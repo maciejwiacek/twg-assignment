@@ -3,43 +3,50 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export interface Note {
+  id: string
   text: string
-  timestamp: string
+  timestamp: number
+  videoId: string
 }
 
 interface AppState {
   isLoggedIn: boolean
-  notes: { [videoId: string]: Note }
+  notes: Note[]
 
   login: () => void
   logout: () => void
-  addOrUpdateNote: (videoId: string, noteText: string) => void
-  getNoteForVideo: (videoId: string) => Note | undefined
+  addNote: (videoId: string, noteText: string, timestamp: number) => void
+  deleteNote: (noteId: string) => void
 }
 
 export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
       isLoggedIn: false,
-      notes: {},
+      notes: [],
 
       login: () => set({ isLoggedIn: true }),
       logout: () => set({ isLoggedIn: false }),
 
-      addOrUpdateNote: (videoId, noteText) => {
+      addNote: (videoId, noteText, timestamp) => {
         const newNote: Note = {
+          id: new Date().getTime().toString(),
           text: noteText,
-          timestamp: new Date().toISOString(),
+          timestamp: timestamp,
+          videoId: videoId,
         }
         set((state) => ({
-          notes: {
-            ...state.notes,
-            [videoId]: newNote,
-          },
+          notes: [...(Array.isArray(state.notes) ? state.notes : []), newNote],
         }))
       },
 
-      getNoteForVideo: (videoId) => get().notes[videoId],
+      deleteNote: (noteId) => {
+        set((state) => ({
+          notes: (Array.isArray(state.notes) ? state.notes : []).filter(
+            (note) => note.id !== noteId
+          ),
+        }))
+      },
     }),
     {
       name: 'app-storage',

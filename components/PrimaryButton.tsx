@@ -1,14 +1,21 @@
-import { Text, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+} from 'react-native'
 import React from 'react'
 
 interface PrimaryButtonProps {
   title: string
   onPress: () => void
+  style?: StyleProp<ViewStyle>
 }
 
-const PrimaryButton = ({ title, onPress }: PrimaryButtonProps) => {
+const PrimaryButton = ({ title, onPress, style }: PrimaryButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   )
