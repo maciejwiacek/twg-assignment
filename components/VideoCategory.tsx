@@ -8,6 +8,7 @@ import {
 import React from 'react'
 import VideoThumbnail from './VideoThumbnail'
 import { useVideos } from '@/hooks/useVideos'
+import { router } from 'expo-router'
 
 interface VideoCategoryProps {
   category: string
@@ -25,7 +26,17 @@ const VideoCategory = ({ category }: VideoCategoryProps) => {
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{category}</Text>
-        <Text style={styles.showMore} onPress={() => console.log('Show more')}>
+        <Text
+          style={styles.showMore}
+          onPress={() =>
+            router.push({
+              pathname: '/(app)/(tabs)/search',
+              params: {
+                initialSearchText: category,
+              },
+            })
+          }
+        >
           Show more
         </Text>
       </View>

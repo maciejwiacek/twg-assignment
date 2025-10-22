@@ -12,11 +12,15 @@ import SearchBar from '@/components/SearchBar'
 import BigThumbnail from '@/components/BigThumbnail'
 import { debounce } from '@/utils/debounce'
 import { useVideos } from '@/hooks/useVideos'
+import { useLocalSearchParams } from 'expo-router'
 
 const Search = () => {
+  const { initialSearchText = '' } = useLocalSearchParams<{
+    initialSearchText?: string
+  }>()
   const [searchText, setSearchText] = useState('')
   const [debouncedSearchText, setDebouncedSearchText] = useState('')
-  const { data, isLoading, isError, fetchNextPage, hasNextPage } =
+  const { data, isLoading, isError, fetchNextPage, hasNextPage, refetch } =
     useVideos(debouncedSearchText)
   const videos = data?.pages.flatMap((page) => page.items)
 
@@ -25,16 +29,16 @@ const Search = () => {
     []
   )
 
-  useEffect(() => {
-    if (debouncedSearchText) {
-      console.log('Searching for:', debouncedSearchText)
-    }
-  }, [debouncedSearchText])
-
   const handleSearch = (text: string) => {
     setSearchText(text)
     debouncedSetSearch(text)
   }
+
+  useEffect(() => {
+    setSearchText(initialSearchText as string)
+    setDebouncedSearchText(initialSearchText as string)
+    refetch()
+  }, [initialSearchText])
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -43,6 +47,7 @@ const Search = () => {
           <SearchBar
             value={searchText}
             onChangeText={handleSearch}
+            focused={searchText === ''}
             placeholder='Search videos'
           />
         </View>

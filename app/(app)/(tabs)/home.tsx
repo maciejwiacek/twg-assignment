@@ -13,9 +13,20 @@ const Home = () => {
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.header}>
         <SearchBar
+          focusable={false}
           value={searchText}
+          focused={false}
           onChangeText={(text) => setSearchText(text)}
           placeholder='Search videos'
+          onPress={() => {
+            router.push({
+              pathname: '/(app)/(tabs)/search',
+              params: {
+                initialSearchText: '',
+                focused: '1',
+              },
+            })
+          }}
         />
         <TouchableOpacity onPress={() => router.push('/user/settings')}>
           <Gear />

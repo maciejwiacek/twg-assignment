@@ -33,6 +33,9 @@ const Layout = () => {
             <Search width={24} height={24} stroke={color} />
           ),
         }}
+        initialParams={{
+          initialSearchText: '',
+        }}
       />
     </Tabs>
   )

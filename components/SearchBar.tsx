@@ -1,5 +1,5 @@
 import { View, TextInput, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Search from '@/assets/icons/search-icon.svg'
 import BigThumbnail from './BigThumbnail'
 
@@ -7,13 +7,34 @@ interface SearchBarProps {
   value: string
   onChangeText: (text: string) => void
   placeholder?: string
+  focused?: boolean
+  onPress?: () => void
+  focusable?: boolean
 }
 
-const SearchBar = ({ value, onChangeText, placeholder }: SearchBarProps) => {
+const SearchBar = ({
+  value,
+  onChangeText,
+  placeholder,
+  focused = false,
+  onPress,
+  focusable = true,
+}: SearchBarProps) => {
+  const inputRef = useRef<TextInput>(null)
+
+  useEffect(() => {
+    if (inputRef.current && focused) {
+      inputRef.current.focus()
+    }
+  }, [focused])
+
   return (
     <View style={styles.container}>
       <Search />
       <TextInput
+        onPress={onPress}
+        editable={focusable}
+        ref={inputRef}
         style={styles.input}
         value={value}
         onChangeText={onChangeText}
