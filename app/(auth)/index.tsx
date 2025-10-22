@@ -5,16 +5,10 @@ import React from 'react'
 import { Linking, StyleSheet, Text, View } from 'react-native'
 import Logo from '@/assets/logo.svg'
 import Icon from '@/assets/app-icon.svg'
+import { useAppStore } from '@/store/useAppStore'
 
 const Index = () => {
-  const handleSignIn = async () => {
-    try {
-      await AsyncStorage.setItem('isSignedIn', 'true')
-      router.replace('/(app)/(tabs)/home')
-    } catch (error) {
-      console.log('Error signing in:', error)
-    }
-  }
+  const login = useAppStore((state) => state.login)
 
   return (
     <View style={styles.container}>
@@ -24,7 +18,7 @@ const Index = () => {
         <Text style={styles.subheading}>
           Welcome to the best{'\n'}YouTube-based learning application.
         </Text>
-        <PrimaryButton title='Sign In' onPress={handleSignIn} />
+        <PrimaryButton title='Sign In' onPress={login} />
         <Text style={styles.privacyText}>
           By continuing you agree with{'\n'}
           <Text

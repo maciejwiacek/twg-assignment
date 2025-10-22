@@ -10,6 +10,7 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins'
 import { ActivityIndicator } from 'react-native'
+import { useAppStore } from '@/store/useAppStore'
 
 const RootLayout = () => {
   const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null)
@@ -20,34 +21,18 @@ const RootLayout = () => {
     Poppins_600SemiBold,
     Poppins_700Bold,
   })
+  const isLoggedIn = useAppStore((state) => state.isLoggedIn)
 
-  const checkSignInStatus = async () => {
-    try {
-      const signedIn = await AsyncStorage.getItem('isSignedIn')
-      console.log('signedIn:', signedIn)
-      setIsSignedIn(signedIn === 'true')
-    } catch (error) {
-      console.error('Error reading sign-in status:', error)
-      setIsSignedIn(false)
-    }
-  }
-
-  useFocusEffect(
-    useCallback(() => {
-      checkSignInStatus()
-    }, [])
-  )
-
-  if (isSignedIn === null || !fontsLoaded) {
+  if (isLoggedIn === null || !fontsLoaded) {
     return <ActivityIndicator size='large' style={{ flex: 1 }} />
   }
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Protected guard={isSignedIn === false}>
+      <Stack.Protected guard={isLoggedIn === false}>
         <Stack.Screen name='(auth)' />
       </Stack.Protected>
-      <Stack.Protected guard={isSignedIn === true}>
+      <Stack.Protected guard={isLoggedIn === true}>
         <Stack.Screen name='(app)' />
       </Stack.Protected>
     </Stack>

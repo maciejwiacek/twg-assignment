@@ -22,6 +22,17 @@ const VideoCategory = ({ category }: VideoCategoryProps) => {
     return <ActivityIndicator size='large' style={{ flex: 1 }} />
   }
 
+  if (isError) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>{category}</Text>
+        <Text style={styles.errorText}>
+          Error fetching videos. Please try again.
+        </Text>
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -91,5 +102,10 @@ const styles = StyleSheet.create({
   divider: {
     height: 2,
     backgroundColor: '#2B2D42',
+  },
+  errorText: {
+    fontFamily: 'Poppins_400Regular',
+    fontSize: 12,
+    color: '#2B2D42',
   },
 })
