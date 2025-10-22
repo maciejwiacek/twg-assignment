@@ -11,7 +11,7 @@ const VideoDetails = () => {
   const { videoId } = useLocalSearchParams<{ videoId: string }>()
   const { data, isLoading, isError } = useVideoDetails(videoId)
   return (
-    <View>
+    <View style={styles.container}>
       <YouTubeVideoPlayer />
       <ScrollView style={styles.infoContainer}>
         <Text style={styles.title}>{data?.snippet.title}</Text>
@@ -44,6 +44,10 @@ const VideoDetails = () => {
 export default VideoDetails
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   title: {
     fontFamily: 'Poppins_600SemiBold',
     fontSize: 18,
@@ -80,6 +84,8 @@ const styles = StyleSheet.create({
   sectionHeader: {
     fontFamily: 'Poppins_600SemiBold',
     fontSize: 10,
+    marginTop: 16,
+    marginBottom: 8,
   },
   description: {
     fontFamily: 'Poppins_400Regular',

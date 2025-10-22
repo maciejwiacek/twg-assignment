@@ -3,23 +3,39 @@ import React from 'react'
 import { formatDate } from '@/utils/formatDate'
 import { router } from 'expo-router'
 
-const BigThumbnail = () => {
+interface BigThumbnailProps {
+  videoId: string
+  channelName: string
+  title: string
+  date: string
+  image: string
+}
+
+const BigThumbnail = ({
+  videoId,
+  channelName,
+  title,
+  date,
+  image,
+}: BigThumbnailProps) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => router.push('/video/X8ipUgXH6jw')}
+      onPress={() =>
+        router.push({
+          pathname: '/(app)/video/[videoId]',
+          params: { videoId },
+        })
+      }
     >
-      <Image
-        source={{ uri: 'https://i.ytimg.com/vi/X8ipUgXH6jw/hqdefault.jpg' }}
-        style={styles.image}
-      />
+      <Image source={{ uri: image }} style={styles.image} />
       <Text numberOfLines={1} style={styles.channelName}>
-        Fireship
+        {channelName}
       </Text>
       <Text numberOfLines={2} style={styles.title}>
-        React Native vs Flutter - I built the same chat app with both
+        {title}
       </Text>
-      <Text style={styles.date}>{formatDate('2021-10-04T14:58:18Z')}</Text>
+      <Text style={styles.date}>{formatDate(date)}</Text>
     </TouchableOpacity>
   )
 }
@@ -29,6 +45,7 @@ export default BigThumbnail
 const styles = StyleSheet.create({
   container: {
     gap: 8,
+    marginBottom: 16,
   },
   image: {
     width: '100%',
