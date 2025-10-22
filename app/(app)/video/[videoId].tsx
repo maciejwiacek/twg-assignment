@@ -6,6 +6,8 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useLocalSearchParams } from 'expo-router'
@@ -19,7 +21,8 @@ import TabComponent from '@/components/TabComponent'
 import { useAppStore } from '@/store/useAppStore'
 import PrimaryButton from '@/components/PrimaryButton'
 import { formatTime } from '@/utils/videoUtils'
-import { useVideoPlayer } from '@/hooks/useVideoPlayer'
+import { useVideoPlayer } from '@/contexts/VideoPlayerContext'
+import { VideoPlayerProvider } from '@/contexts/VideoPlayerContext'
 
 const DetailsTab = ({ data }: { data: VideoDetailItem }) => {
   return (
@@ -66,13 +69,22 @@ const NotesTab = ({ data }: { data: VideoDetailItem }) => {
     if (note.trim()) {
       addNote(data.id, note.trim(), currentTime)
       setNote('')
+      Keyboard.dismiss()
     }
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.notesContainer}>
-        <ScrollView style={styles.notesList}>
+    <KeyboardAvoidingView
+      style={styles.notesContainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 350 : 250}
+    >
+      <View style={styles.notesContent}>
+        <ScrollView
+          style={styles.notesList}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.notesScrollContent}
+        >
           {videoNotes && videoNotes.length > 0 ? (
             videoNotes.map((note) => (
               <View key={note.id} style={styles.noteItem}>
@@ -88,6 +100,7 @@ const NotesTab = ({ data }: { data: VideoDetailItem }) => {
             </Text>
           )}
         </ScrollView>
+
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.noteInput}
@@ -100,16 +113,16 @@ const NotesTab = ({ data }: { data: VideoDetailItem }) => {
             placeholderTextColor='#999999'
           />
           <PrimaryButton
-            title='Save Note'
+            title='Add Note'
             onPress={handleSaveNote}
             style={styles.saveButton}
           />
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   )
 }
-const VideoDetails = () => {
+const VideoDetailsContent = () => {
   const { videoId } = useLocalSearchParams<{ videoId: string }>()
   const { data, isLoading, isError } = useVideoDetails(videoId)
 
@@ -129,6 +142,14 @@ const VideoDetails = () => {
       <YouTubeVideoPlayer />
       <TabComponent tabs={tabs} />
     </View>
+  )
+}
+
+const VideoDetails = () => {
+  return (
+    <VideoPlayerProvider>
+      <VideoDetailsContent />
+    </VideoPlayerProvider>
   )
 }
 
@@ -190,11 +211,24 @@ const styles = StyleSheet.create({
   },
   notesContainer: {
     flex: 1,
+  },
+  notesContent: {
+    flex: 1,
     paddingHorizontal: 20,
+  },
+  notesList: {
+    flex: 1,
+  },
+  notesScrollContent: {
+    paddingVertical: 16,
+    paddingBottom: 20,
   },
   inputContainer: {
     paddingVertical: 16,
     gap: 12,
+    backgroundColor: 'white',
+    borderTopWidth: 1,
+    borderTopColor: '#E5E5E5',
   },
   noteInput: {
     borderWidth: 1,
@@ -209,10 +243,6 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     width: '100%',
-  },
-  notesList: {
-    flex: 1,
-    paddingVertical: 16,
   },
   noNotesText: {
     fontFamily: 'Poppins_400Regular',

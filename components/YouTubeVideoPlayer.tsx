@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Video from 'react-native-video'
-import { useVideoPlayer } from '@/hooks/useVideoPlayer'
+import { useVideoPlayer } from '@/contexts/VideoPlayerContext'
 import VideoOverlay from './VideoOverlay'
 import VideoControls from './VideoControls'
 import ProgressBar from './ProgressBar'
