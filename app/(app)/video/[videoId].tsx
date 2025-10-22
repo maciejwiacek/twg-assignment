@@ -4,12 +4,11 @@ import {
   StyleSheet,
   ScrollView,
   TextInput,
-  TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useLocalSearchParams } from 'expo-router'
 import { useVideoDetails } from '@/hooks/useVideoDetails'
 import PersonIcon from '@/assets/icons/person-icon.svg'

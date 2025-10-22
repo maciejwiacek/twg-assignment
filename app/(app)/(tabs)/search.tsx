@@ -74,14 +74,14 @@ const Search = () => {
         {resultsFetched && (
           <>
             <Text style={styles.resultsText}>
-              {data?.pages[0].pageInfo.totalResults || 0} results for: "
+              {totalResults || 0} results for: "
               <Text style={styles.searchText}>{searchText}</Text>"
             </Text>
 
             <FlatList
               showsVerticalScrollIndicator={false}
               data={videos || []}
-              keyExtractor={(item) => item.id.videoId}
+              keyExtractor={(item) => `search/${item.id.videoId}`}
               renderItem={({ item }) => (
                 <BigThumbnail
                   videoId={item.id.videoId}

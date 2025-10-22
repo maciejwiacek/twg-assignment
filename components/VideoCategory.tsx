@@ -56,7 +56,7 @@ const VideoCategory = ({ category }: VideoCategoryProps) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatListContent}
-        keyExtractor={(item) => item.id.videoId}
+        keyExtractor={(item) => `section/${item.id.videoId}`}
         renderItem={({ item }) => (
           <VideoThumbnail
             videoId={item.id.videoId}
